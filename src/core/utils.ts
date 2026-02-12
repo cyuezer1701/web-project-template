@@ -3,14 +3,15 @@
  * General-purpose helpers used across the application.
  */
 
-import { UI } from '../constants/app-constants.js';
+import { UI } from '../constants/app-constants';
+import type { NotificationType } from '../types/index';
 
 /**
  * Generates a random alphanumeric ID
- * @param {number} length - Length of the ID (default: 8)
- * @returns {string} Random ID
+ * @param length - Length of the ID (default: 8)
+ * @returns Random ID
  */
-export function generateId(length = 8) {
+export function generateId(length: number = 8): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
   let result = '';
   for (let i = 0; i < length; i++) {
@@ -21,10 +22,10 @@ export function generateId(length = 8) {
 
 /**
  * Formats a timestamp for display
- * @param {number} timestamp - Unix timestamp in milliseconds
- * @returns {string} Formatted time string
+ * @param timestamp - Unix timestamp in milliseconds
+ * @returns Formatted time string
  */
-export function formatTime(timestamp) {
+export function formatTime(timestamp: number): string {
   return new Date(timestamp).toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
@@ -33,10 +34,10 @@ export function formatTime(timestamp) {
 
 /**
  * Formats a date for display
- * @param {number} timestamp - Unix timestamp in milliseconds
- * @returns {string} Formatted date string
+ * @param timestamp - Unix timestamp in milliseconds
+ * @returns Formatted date string
  */
-export function formatDate(timestamp) {
+export function formatDate(timestamp: number): string {
   return new Date(timestamp).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -46,10 +47,10 @@ export function formatDate(timestamp) {
 
 /**
  * Shows a notification to the user
- * @param {string} message - Notification message
- * @param {string} type - Notification type: 'info', 'success', 'error', 'warning'
+ * @param message - Notification message
+ * @param type - Notification type: 'info', 'success', 'error', 'warning'
  */
-export function notify(message, type = 'info') {
+export function notify(message: string, type: NotificationType = 'info'): void {
   const notif = document.createElement('div');
   notif.className = `notification ${type}`;
   notif.textContent = message;

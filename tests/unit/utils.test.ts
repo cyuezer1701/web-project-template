@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateId, formatTime, formatDate } from '../../src/core/utils.js';
+import { generateId, formatTime, formatDate } from '../../src/core/utils';
 
 describe('generateId', () => {
   it('should generate an ID of default length 8', () => {

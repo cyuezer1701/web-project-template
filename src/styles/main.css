@@ -1,3 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1a237e;
+  --color-primary-light: #1565c0;
+  --color-accent: #10b981;
+  --color-danger: #ef4444;
+  --font-family-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* ==================== BASE STYLES ==================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap');

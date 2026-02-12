@@ -1,29 +1,29 @@
 /* ==================== APP CONSTANTS ==================== */
 
-export const APP_NAME = 'My App';
-export const APP_VERSION = '1.0.0';
+export const APP_NAME: string = 'My App';
+export const APP_VERSION: string = '1.0.0';
 
 /**
  * Firestore collection names
  */
 export const COLLECTIONS = {
-  NOTES: 'notes',
-};
+  ITEMS: 'items',
+} as const;
 
 /**
  * UI constants
  */
 export const UI = {
   MAX_TITLE_LENGTH: 100,
-  MAX_CONTENT_LENGTH: 5000,
-  NOTES_PER_PAGE: 20,
+  MAX_DESCRIPTION_LENGTH: 2000,
+  ITEMS_PER_PAGE: 20,
   NOTIFICATION_DURATION_MS: 3000,
-};
+} as const;
 
 /**
- * Note status
+ * Item status
  */
-export const NOTE_STATUS = {
+export const ITEM_STATUS = {
   ACTIVE: 'active',
   ARCHIVED: 'archived',
-};
+} as const;

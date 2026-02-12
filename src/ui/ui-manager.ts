@@ -5,9 +5,9 @@
 
 /**
  * Shows a specific screen and hides all others
- * @param {string} screenId - ID of screen to show
+ * @param screenId - ID of screen to show
  */
-export function showScreen(screenId) {
+export function showScreen(screenId: string): void {
   ['start-screen', 'app-screen'].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.classList.add('hidden');
@@ -19,28 +19,28 @@ export function showScreen(screenId) {
 
 /**
  * Shows a modal by ID
- * @param {string} modalId - Modal element ID
+ * @param modalId - Modal element ID
  */
-export function showModal(modalId) {
+export function showModal(modalId: string): void {
   const modal = document.getElementById(modalId);
   if (modal) modal.classList.remove('hidden');
 }
 
 /**
  * Hides a modal by ID
- * @param {string} modalId - Modal element ID
+ * @param modalId - Modal element ID
  */
-export function hideModal(modalId) {
+export function hideModal(modalId: string): void {
   const modal = document.getElementById(modalId);
   if (modal) modal.classList.add('hidden');
 }
 
 /**
  * Sets the status text
- * @param {string} message - Status message
- * @param {boolean} isError - Whether this is an error message
+ * @param message - Status message
+ * @param isError - Whether this is an error message
  */
-export function setStatus(message, isError = false) {
+export function setStatus(message: string, isError: boolean = false): void {
   const statusEl = document.getElementById('status-message');
   if (statusEl) {
     statusEl.textContent = message;

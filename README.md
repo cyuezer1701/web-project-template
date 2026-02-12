@@ -1,16 +1,20 @@
 # Vite + Firebase + PWA Template
 
-A production-ready project template for vanilla JavaScript web apps with Firebase, PWA support, and a complete CI/CD pipeline.
+A production-ready TypeScript project template for web apps with Firebase, PWA support, i18n, Web Components, and a complete CI/CD pipeline.
 
 ## Features
 
+- **TypeScript** — Strict mode, full type coverage
 - **Vite 7.3** — Lightning-fast dev server and optimized builds
 - **Firebase 12.9** — Firestore real-time database + Anonymous Auth
 - **PWA** — Service worker, offline fallback, installable app
-- **CI/CD** — GitHub Actions: lint, test, build, deploy
+- **Tailwind CSS v4** — Local Vite plugin (no CDN), `@theme` design tokens
+- **i18n** — Lightweight translation engine with EN/DE support
+- **Web Components** — Custom Elements library with Shadow DOM
+- **CI/CD** — GitHub Actions: lint, typecheck, test, build, deploy
 - **Testing** — Vitest with jsdom, unit + integration tests, Firebase mocks
-- **Code Quality** — ESLint 10 (flat config) + Prettier
-- **Tailwind CSS** — CDN + custom CSS architecture
+- **Code Quality** — ESLint 9 (flat config) + Prettier + TypeScript strict
+- **Claude Code Agents** — 4 specialized agents (Designer, PM, Dev, Tester)
 
 ## Quick Start
 
@@ -63,8 +67,9 @@ cp .env.example .env
 | Script | Description |
 |--------|-------------|
 | `npm run dev` | Start dev server (port 3000) |
-| `npm run build` | Production build to `dist/` |
+| `npm run build` | Typecheck + production build to `dist/` |
 | `npm run preview` | Preview production build |
+| `npm run typecheck` | Run TypeScript type checking |
 | `npm test` | Run tests in watch mode |
 | `npm run test:ui` | Run tests with visual UI |
 | `npm run test:coverage` | Run tests with coverage report |
@@ -77,28 +82,46 @@ cp .env.example .env
 
 ```
 src/
-├── main.js                    # Entry point & orchestrator
+├── main.ts                      # Entry point & orchestrator
+├── vite-env.d.ts                # Vite environment type declarations
+├── types/
+│   └── index.ts                 # Shared TypeScript interfaces
 ├── config/
-│   └── firebase.js            # Firebase initialization
+│   └── firebase.ts              # Firebase initialization
 ├── constants/
-│   └── app-constants.js       # Application constants
+│   └── app-constants.ts         # Application constants
 ├── core/
-│   ├── note-logic.js          # Pure business logic (no side effects)
-│   └── utils.js               # Utility functions
+│   ├── item-logic.ts            # Pure business logic (no side effects)
+│   └── utils.ts                 # Utility functions
 ├── services/
-│   ├── connection-monitor.js  # Online/offline detection
-│   └── note-service.js        # Firestore CRUD + real-time
+│   ├── connection-monitor.ts    # Online/offline detection
+│   └── item-service.ts          # Firestore CRUD + real-time
 ├── state/
-│   └── app-state.js           # Singleton state object
+│   └── app-state.ts             # Singleton state object
 ├── ui/
-│   ├── event-handlers.js      # DOM event wiring
-│   ├── renderer.js            # DOM rendering functions
-│   └── ui-manager.js          # Screen/modal management
+│   ├── event-handlers.ts        # DOM event wiring
+│   ├── renderer.ts              # DOM rendering functions
+│   └── ui-manager.ts            # Screen/modal management
+├── components/
+│   ├── base-component.ts        # Abstract Web Component base class
+│   ├── app-button.ts            # <app-button> component
+│   ├── app-card.ts              # <app-card> component
+│   ├── app-modal.ts             # <app-modal> component
+│   ├── app-notification.ts      # <app-notification> component
+│   ├── app-input.ts             # <app-input> component
+│   ├── app-empty-state.ts       # <app-empty-state> component
+│   └── index.ts                 # Component registration
+├── i18n/
+│   ├── i18n.ts                  # Translation engine (t(), initI18n)
+│   ├── locale-switcher.ts       # Locale switching utilities
+│   └── locales/
+│       ├── en.json              # English translations
+│       └── de.json              # German translations
 └── styles/
-    ├── main.css               # Base styles & backgrounds
-    ├── components.css          # Component-specific styles
-    ├── ui.css                  # Shared UI components
-    └── animations.css          # Keyframe animations
+    ├── main.css                 # Tailwind import + design tokens
+    ├── components.css           # Component-specific styles
+    ├── ui.css                   # Shared UI components
+    └── animations.css           # Keyframe animations
 ```
 
 ## Architecture
@@ -113,14 +136,54 @@ src/
 | `services/` | External service integrations | Firestore CRUD, connection monitor |
 | `state/` | Application state management | Singleton state object |
 | `ui/` | DOM manipulation and rendering | Screen management, event handlers |
-| `styles/` | CSS files | Base, components, UI, animations |
+| `components/` | Reusable Web Components | Buttons, cards, modals, inputs |
+| `i18n/` | Internationalization | Translation engine, locale files |
+| `styles/` | CSS files | Tailwind tokens, components, animations |
+| `types/` | TypeScript type definitions | Item, AppState, ValidationResult |
 
 ### Design Patterns
 
 - **Singleton State** — Single shared state object imported by all modules
-- **Render Bridge** — `main.js` provides a `renderApp()` function to modules
+- **Render Bridge** — `main.ts` provides a `renderApp()` function to modules
 - **Module Init Pattern** — Each module exports an `init*()` function
 - **Pure Logic Separation** — Business logic in `core/` has no dependencies on DOM or Firebase
+- **Web Components** — Custom Elements with Shadow DOM for encapsulated, reusable UI
+
+### Web Components
+
+The template includes a component library built on native Custom Elements:
+
+| Component | Tag | Description |
+|-----------|-----|-------------|
+| `AppButton` | `<app-button>` | Button with variant (primary/success/danger/ghost) and size (sm/md/lg) |
+| `AppCard` | `<app-card>` | Card with header/body/footer slots and elevation levels |
+| `AppModal` | `<app-modal>` | Modal dialog with show()/hide() API |
+| `AppNotification` | `<app-notification>` | Toast notifications via static `AppNotification.show()` |
+| `AppInput` | `<app-input>` | Form input with label, validation, and change events |
+| `AppEmptyState` | `<app-empty-state>` | Empty state placeholder with icon and message |
+
+### i18n
+
+The template includes a lightweight translation engine:
+
+- `t('key.path')` — Translate a key with dot notation
+- `t('key', { param: value })` — Interpolate parameters
+- `translateDOM()` — Translate all elements with `data-i18n` attributes
+- Locale files in `src/i18n/locales/` (EN + DE included)
+- Browser language auto-detection with localStorage persistence
+
+## Claude Code Agents
+
+This template includes four specialized Claude Code agents as slash commands:
+
+| Command | Role | Focus |
+|---------|------|-------|
+| `/designer` | UI/UX Designer | Tailwind v4, accessibility (WCAG 2.1 AA), responsive design, design tokens |
+| `/pm` | Project Manager | Feature planning, task decomposition, dependency analysis |
+| `/dev` | Developer | TypeScript implementation, architecture patterns, Firebase, testing |
+| `/tester` | Tester/QA | Vitest tests, coverage analysis, edge cases, Firebase mocking |
+
+Project context is provided via `CLAUDE.md` at the project root.
 
 ## GitHub Secrets
 
@@ -133,8 +196,9 @@ For CI/CD to work, add these secrets in your repository settings:
 
 ```
 Push/PR to main
-    └─> CI: Install → Format Check → Lint → Test → Coverage → Build
+    └─> CI: Install → Format Check → Lint → Typecheck → Test → Coverage → Build
               └─> CD (on main): Build → Deploy to Firebase Hosting
+              └─> PR: Build → Deploy to Firebase Preview Channel
 ```
 
 ## License

@@ -7,7 +7,7 @@ import { vi } from 'vitest';
 // Mock firebase/firestore
 vi.mock('firebase/firestore', () => ({
   collection: vi.fn(),
-  doc: vi.fn((_db, _collection, id) => ({ collection: _collection, id })),
+  doc: vi.fn((_db: unknown, _collection: string, id: string) => ({ collection: _collection, id })),
   addDoc: vi.fn(() => Promise.resolve({ id: 'mock-doc-id' })),
   deleteDoc: vi.fn(() => Promise.resolve()),
   query: vi.fn(),
@@ -18,11 +18,11 @@ vi.mock('firebase/firestore', () => ({
 }));
 
 // Mock firebase config
-vi.mock('../../src/config/firebase.js', () => ({ db: {} }));
+vi.mock('../../src/config/firebase', () => ({ db: {} }));
 
 // Mock utils (keep pure functions, mock DOM-dependent ones)
-vi.mock('../../src/core/utils.js', async (importOriginal) => {
-  const actual = await importOriginal();
+vi.mock('../../src/core/utils', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../src/core/utils')>();
   return {
     ...actual,
     notify: vi.fn(),
@@ -30,7 +30,7 @@ vi.mock('../../src/core/utils.js', async (importOriginal) => {
 });
 
 // Mock UI manager
-vi.mock('../../src/ui/ui-manager.js', () => ({
+vi.mock('../../src/ui/ui-manager', () => ({
   showScreen: vi.fn(),
   showModal: vi.fn(),
   hideModal: vi.fn(),

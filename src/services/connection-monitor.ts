@@ -3,9 +3,9 @@
  * Detects browser online/offline state and shows a banner to the user.
  */
 
-let connectionBanner = null;
+let connectionBanner: HTMLElement | null = null;
 
-export function initConnectionMonitor() {
+export function initConnectionMonitor(): void {
   connectionBanner = document.getElementById('connection-banner');
 
   window.addEventListener('offline', () => showDisconnected());
@@ -16,17 +16,17 @@ export function initConnectionMonitor() {
   }
 }
 
-function showDisconnected() {
+function showDisconnected(): void {
   if (!connectionBanner) return;
   connectionBanner.textContent = 'Connection lost...';
   connectionBanner.className = 'connection-banner disconnected';
 }
 
-function showReconnected() {
+function showReconnected(): void {
   if (!connectionBanner) return;
   connectionBanner.textContent = 'Connected!';
   connectionBanner.className = 'connection-banner connected';
   setTimeout(() => {
-    connectionBanner.classList.add('hidden');
+    connectionBanner!.classList.add('hidden');
   }, 3000);
 }

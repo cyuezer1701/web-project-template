@@ -21,8 +21,8 @@ export const auth = getAuth(app);
 
 // Validate configuration on import
 if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-  console.error('❌ Firebase configuration missing! Check your .env file.');
+  console.error('Firebase configuration missing! Check your .env file.');
   throw new Error('Missing Firebase environment variables');
 }
 
-console.log('🔥 Firebase configuration loaded successfully');
+console.log('Firebase configuration loaded successfully');
