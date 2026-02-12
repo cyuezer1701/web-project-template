@@ -14,7 +14,6 @@
     <link rel="icon" type="image/svg+xml" href="/icon-192.svg" />
     <link rel="apple-touch-icon" href="/icon-192.svg" />
     <title>My App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <!-- Skeleton Loading Screen (removed by JS on init) -->
@@ -173,16 +172,16 @@
       <!-- Header -->
       <div class="flex justify-between items-center mb-6">
         <div>
-          <h1 class="text-2xl font-bold">My Notes</h1>
-          <p class="text-sm text-white/60">Your personal notes</p>
+          <h1 class="text-2xl font-bold">My Items</h1>
+          <p class="text-sm text-white/60">Your items</p>
         </div>
         <div class="flex gap-2">
           <button
-            id="btn-add-note"
+            id="btn-add-item"
             class="btn btn-success"
             style="padding: 10px 20px; font-size: 14px"
           >
-            + Add Note
+            + Add Item
           </button>
           <button
             id="btn-back-to-start"
@@ -200,40 +199,40 @@
         </div>
       </div>
 
-      <!-- Note List -->
-      <div id="note-list" class="flex-1"></div>
+      <!-- Item List -->
+      <div id="item-list" class="flex-1"></div>
     </div>
 
-    <!-- Create Note Modal -->
-    <div id="create-note-modal" class="modal hidden">
+    <!-- Create Item Modal -->
+    <div id="create-item-modal" class="modal hidden">
       <div class="modal-content">
-        <h2 class="text-2xl font-bold mb-6 text-center" style="color: #1565c0">New Note</h2>
+        <h2 class="text-2xl font-bold mb-6 text-center" style="color: #1565c0">New Item</h2>
 
         <div class="space-y-4 mb-6">
           <div>
-            <label class="form-label" for="note-title-input">Title</label>
+            <label class="form-label" for="item-title-input">Title</label>
             <input
               type="text"
-              id="note-title-input"
+              id="item-title-input"
               class="form-input"
-              placeholder="Note title..."
+              placeholder="Item title..."
               maxlength="100"
             />
           </div>
           <div>
-            <label class="form-label" for="note-content-input">Content</label>
+            <label class="form-label" for="item-description-input">Description</label>
             <textarea
-              id="note-content-input"
+              id="item-description-input"
               class="form-textarea"
-              placeholder="Write your note..."
-              maxlength="5000"
+              placeholder="Write a description..."
+              maxlength="2000"
             ></textarea>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
-          <button id="btn-cancel-note" class="btn" style="padding: 12px">Cancel</button>
-          <button id="btn-save-note" class="btn btn-success" style="padding: 12px">Save</button>
+          <button id="btn-cancel-item" class="btn" style="padding: 12px">Cancel</button>
+          <button id="btn-save-item" class="btn btn-success" style="padding: 12px">Save</button>
         </div>
       </div>
     </div>
@@ -295,7 +294,7 @@
       </button>
     </div>
 
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.ts"></script>
     <script>
       // Service Worker Registration
       if ('serviceWorker' in navigator) {

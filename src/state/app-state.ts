@@ -2,11 +2,13 @@
  * Shared application state singleton.
  * All modules import this object and read/write its properties directly.
  */
-const state = {
+import type { AppState } from "../types/index";
+
+const state: AppState = {
   userId: null,
-  notes: [],
+  items: [],
   unsubscribe: null,
-  currentScreen: 'start-screen',
+  currentScreen: "start-screen",
 };
 
 export default state;
