@@ -1,13 +1,13 @@
 /* ==================== APP CONSTANTS ==================== */
 
-export const APP_NAME: string = 'My App';
-export const APP_VERSION: string = '1.0.0';
+export const APP_NAME: string = "My App";
+export const APP_VERSION: string = "1.0.0";
 
 /**
  * Firestore collection names
  */
 export const COLLECTIONS = {
-  ITEMS: 'items',
+  ITEMS: "items",
 } as const;
 
 /**
@@ -24,6 +24,6 @@ export const UI = {
  * Item status
  */
 export const ITEM_STATUS = {
-  ACTIVE: 'active',
-  ARCHIVED: 'archived',
+  ACTIVE: "active",
+  ARCHIVED: "archived",
 } as const;

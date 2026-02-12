@@ -3,11 +3,11 @@
  * <app-empty-state icon="📋" message="No items yet."></app-empty-state>
  */
 
-import { BaseComponent } from './base-component';
+import { BaseComponent } from "./base-component";
 
 export class AppEmptyState extends BaseComponent {
   static get observedAttributes(): string[] {
-    return ['icon', 'message'];
+    return ["icon", "message"];
   }
 
   attributeChangedCallback(): void {
@@ -15,8 +15,8 @@ export class AppEmptyState extends BaseComponent {
   }
 
   render(): void {
-    const icon = this.getAttribute('icon') || '📋';
-    const message = this.getAttribute('message') || 'Nothing here yet.';
+    const icon = this.getAttribute("icon") || "📋";
+    const message = this.getAttribute("message") || "Nothing here yet.";
 
     this.html(`
       ${this.baseStyles()}

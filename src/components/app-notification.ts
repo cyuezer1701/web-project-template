@@ -5,33 +5,37 @@
  * Usage: AppNotification.show('Message', 'success');
  */
 
-import { BaseComponent } from './base-component';
+import { BaseComponent } from "./base-component";
 
 export class AppNotification extends BaseComponent {
   static get observedAttributes(): string[] {
-    return ['type', 'duration'];
+    return ["type", "duration"];
   }
 
   /**
    * Static helper to show a notification programmatically
    */
-  static show(message: string, type: 'info' | 'success' | 'error' | 'warning' = 'info', duration = 3000): void {
-    const notif = document.createElement('app-notification') as AppNotification;
-    notif.setAttribute('type', type);
-    notif.setAttribute('duration', String(duration));
+  static show(
+    message: string,
+    type: "info" | "success" | "error" | "warning" = "info",
+    duration = 3000,
+  ): void {
+    const notif = document.createElement("app-notification") as AppNotification;
+    notif.setAttribute("type", type);
+    notif.setAttribute("duration", String(duration));
     notif.textContent = message;
     document.body.appendChild(notif);
   }
 
   render(): void {
-    const type = this.getAttribute('type') || 'info';
-    const duration = parseInt(this.getAttribute('duration') || '3000', 10);
+    const type = this.getAttribute("type") || "info";
+    const duration = parseInt(this.getAttribute("duration") || "3000", 10);
 
     const colors: Record<string, string> = {
-      info: '#3b82f6',
-      success: '#10b981',
-      error: '#ef4444',
-      warning: '#f59e0b',
+      info: "#3b82f6",
+      success: "#10b981",
+      error: "#ef4444",
+      warning: "#f59e0b",
     };
 
     this.html(`
@@ -65,9 +69,9 @@ export class AppNotification extends BaseComponent {
     `);
 
     setTimeout(() => {
-      this.style.transition = 'opacity 0.3s, transform 0.3s';
-      this.style.opacity = '0';
-      this.style.transform = 'translateX(-50%) translateY(-100%)';
+      this.style.transition = "opacity 0.3s, transform 0.3s";
+      this.style.opacity = "0";
+      this.style.transform = "translateX(-50%) translateY(-100%)";
       setTimeout(() => this.remove(), 300);
     }, duration);
   }

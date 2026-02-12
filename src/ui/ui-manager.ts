@@ -8,13 +8,13 @@
  * @param screenId - ID of screen to show
  */
 export function showScreen(screenId: string): void {
-  ['start-screen', 'app-screen'].forEach((id) => {
+  ["start-screen", "app-screen"].forEach((id) => {
     const el = document.getElementById(id);
-    if (el) el.classList.add('hidden');
+    if (el) el.classList.add("hidden");
   });
 
   const target = document.getElementById(screenId);
-  if (target) target.classList.remove('hidden');
+  if (target) target.classList.remove("hidden");
 }
 
 /**
@@ -23,7 +23,7 @@ export function showScreen(screenId: string): void {
  */
 export function showModal(modalId: string): void {
   const modal = document.getElementById(modalId);
-  if (modal) modal.classList.remove('hidden');
+  if (modal) modal.classList.remove("hidden");
 }
 
 /**
@@ -32,7 +32,7 @@ export function showModal(modalId: string): void {
  */
 export function hideModal(modalId: string): void {
   const modal = document.getElementById(modalId);
-  if (modal) modal.classList.add('hidden');
+  if (modal) modal.classList.add("hidden");
 }
 
 /**
@@ -41,9 +41,9 @@ export function hideModal(modalId: string): void {
  * @param isError - Whether this is an error message
  */
 export function setStatus(message: string, isError: boolean = false): void {
-  const statusEl = document.getElementById('status-message');
+  const statusEl = document.getElementById("status-message");
   if (statusEl) {
     statusEl.textContent = message;
-    statusEl.style.color = isError ? '#ef4444' : '#94a3b8';
+    statusEl.style.color = isError ? "#ef4444" : "#94a3b8";
   }
 }

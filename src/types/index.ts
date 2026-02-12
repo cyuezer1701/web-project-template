@@ -27,7 +27,7 @@ export interface AppState {
 }
 
 /** Notification severity type */
-export type NotificationType = 'info' | 'success' | 'error' | 'warning';
+export type NotificationType = "info" | "success" | "error" | "warning";
 
 /** Callback invoked after state changes to re-render the UI */
 export type RenderCallback = () => void;

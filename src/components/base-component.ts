@@ -9,7 +9,7 @@ export abstract class BaseComponent extends HTMLElement {
 
   constructor() {
     super();
-    this.shadow = this.attachShadow({ mode: 'open' });
+    this.shadow = this.attachShadow({ mode: "open" });
   }
 
   connectedCallback(): void {
@@ -34,7 +34,7 @@ export abstract class BaseComponent extends HTMLElement {
         detail,
         bubbles: true,
         composed: true,
-      })
+      }),
     );
   }
 

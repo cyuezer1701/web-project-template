@@ -4,16 +4,16 @@
  * Can be wired to a UI dropdown or button.
  */
 
-import { setLocale, getLocale } from './i18n';
+import { setLocale, getLocale } from "./i18n";
 
-const STORAGE_KEY = 'app-locale';
+const STORAGE_KEY = "app-locale";
 
 /**
  * Available locales in this application
  */
 export const AVAILABLE_LOCALES: { code: string; label: string }[] = [
-  { code: 'en', label: 'English' },
-  { code: 'de', label: 'Deutsch' },
+  { code: "en", label: "English" },
+  { code: "de", label: "Deutsch" },
 ];
 
 /**

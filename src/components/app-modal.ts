@@ -8,11 +8,11 @@
  * Use .show() and .hide() methods to control visibility.
  */
 
-import { BaseComponent } from './base-component';
+import { BaseComponent } from "./base-component";
 
 export class AppModal extends BaseComponent {
   static get observedAttributes(): string[] {
-    return ['open', 'title'];
+    return ["open", "title"];
   }
 
   attributeChangedCallback(): void {
@@ -20,23 +20,23 @@ export class AppModal extends BaseComponent {
   }
 
   show(): void {
-    this.setAttribute('open', '');
+    this.setAttribute("open", "");
   }
 
   hide(): void {
-    this.removeAttribute('open');
-    this.emit('modal-close');
+    this.removeAttribute("open");
+    this.emit("modal-close");
   }
 
   render(): void {
-    const isOpen = this.hasAttribute('open');
-    const title = this.getAttribute('title') || '';
+    const isOpen = this.hasAttribute("open");
+    const title = this.getAttribute("title") || "";
 
     this.html(`
       ${this.baseStyles()}
       <style>
         .overlay {
-          display: ${isOpen ? 'flex' : 'none'};
+          display: ${isOpen ? "flex" : "none"};
           position: fixed;
           inset: 0;
           z-index: 10000;
@@ -84,7 +84,7 @@ export class AppModal extends BaseComponent {
       </style>
       <div class="overlay" part="overlay">
         <div class="modal" part="modal">
-          ${title ? `<div class="modal-header"><h2 class="modal-title">${title}</h2></div>` : ''}
+          ${title ? `<div class="modal-header"><h2 class="modal-title">${title}</h2></div>` : ""}
           <div class="modal-body"><slot></slot></div>
           <div class="modal-footer"><slot name="footer"></slot></div>
         </div>
@@ -93,8 +93,8 @@ export class AppModal extends BaseComponent {
 
     // Close on overlay click
     if (isOpen) {
-      const overlay = this.shadow.querySelector('.overlay');
-      overlay?.addEventListener('click', (e) => {
+      const overlay = this.shadow.querySelector(".overlay");
+      overlay?.addEventListener("click", (e) => {
         if (e.target === overlay) this.hide();
       });
     }

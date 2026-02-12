@@ -6,10 +6,10 @@
 let connectionBanner: HTMLElement | null = null;
 
 export function initConnectionMonitor(): void {
-  connectionBanner = document.getElementById('connection-banner');
+  connectionBanner = document.getElementById("connection-banner");
 
-  window.addEventListener('offline', () => showDisconnected());
-  window.addEventListener('online', () => showReconnected());
+  window.addEventListener("offline", () => showDisconnected());
+  window.addEventListener("online", () => showReconnected());
 
   if (!navigator.onLine) {
     showDisconnected();
@@ -18,15 +18,15 @@ export function initConnectionMonitor(): void {
 
 function showDisconnected(): void {
   if (!connectionBanner) return;
-  connectionBanner.textContent = 'Connection lost...';
-  connectionBanner.className = 'connection-banner disconnected';
+  connectionBanner.textContent = "Connection lost...";
+  connectionBanner.className = "connection-banner disconnected";
 }
 
 function showReconnected(): void {
   if (!connectionBanner) return;
-  connectionBanner.textContent = 'Connected!';
-  connectionBanner.className = 'connection-banner connected';
+  connectionBanner.textContent = "Connected!";
+  connectionBanner.className = "connection-banner connected";
   setTimeout(() => {
-    connectionBanner!.classList.add('hidden');
+    connectionBanner!.classList.add("hidden");
   }, 3000);
 }

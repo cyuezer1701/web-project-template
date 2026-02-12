@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 // SECURITY: Firebase configuration using environment variables
 // Never commit actual credentials to git!
@@ -21,8 +21,8 @@ export const auth = getAuth(app);
 
 // Validate configuration on import
 if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-  console.error('Firebase configuration missing! Check your .env file.');
-  throw new Error('Missing Firebase environment variables');
+  console.error("Firebase configuration missing! Check your .env file.");
+  throw new Error("Missing Firebase environment variables");
 }
 
-console.log('Firebase configuration loaded successfully');
+console.log("Firebase configuration loaded successfully");

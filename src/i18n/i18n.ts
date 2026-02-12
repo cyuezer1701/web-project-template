@@ -6,7 +6,7 @@
 
 type TranslationDict = Record<string, unknown>;
 
-let currentLocale = 'en';
+let currentLocale = "en";
 let translations: TranslationDict = {};
 let fallbackTranslations: TranslationDict = {};
 
@@ -15,11 +15,11 @@ let fallbackTranslations: TranslationDict = {};
  * @param locale - Target locale (defaults to browser language)
  */
 export async function initI18n(locale?: string): Promise<void> {
-  const targetLocale = locale || navigator.language.split('-')[0] || 'en';
+  const targetLocale = locale || navigator.language.split("-")[0] || "en";
 
-  fallbackTranslations = await loadLocale('en');
+  fallbackTranslations = await loadLocale("en");
 
-  if (targetLocale !== 'en') {
+  if (targetLocale !== "en") {
     translations = await loadLocale(targetLocale);
   } else {
     translations = fallbackTranslations;
@@ -45,21 +45,29 @@ async function loadLocale(locale: string): Promise<TranslationDict> {
  * @param params - Optional parameters for interpolation (e.g., { max: 100 })
  * @returns Translated string or the key itself if not found
  */
-export function t(key: string, params?: Record<string, string | number>): string {
+export function t(
+  key: string,
+  params?: Record<string, string | number>,
+): string {
   const value =
-    getNestedValue(translations, key) || getNestedValue(fallbackTranslations, key) || key;
+    getNestedValue(translations, key) ||
+    getNestedValue(fallbackTranslations, key) ||
+    key;
 
-  if (typeof value !== 'string') return key;
+  if (typeof value !== "string") return key;
 
   if (params) {
-    return value.replace(/\{(\w+)\}/g, (_, k: string) => String(params[k] ?? `{${k}}`));
+    return value.replace(/\{(\w+)\}/g, (_, k: string) =>
+      String(params[k] ?? `{${k}}`),
+    );
   }
   return value;
 }
 
 function getNestedValue(obj: TranslationDict, path: string): unknown {
-  return path.split('.').reduce((acc: unknown, part: string) => {
-    if (acc && typeof acc === 'object') return (acc as Record<string, unknown>)[part];
+  return path.split(".").reduce((acc: unknown, part: string) => {
+    if (acc && typeof acc === "object")
+      return (acc as Record<string, unknown>)[part];
     return undefined;
   }, obj);
 }
@@ -69,12 +77,12 @@ function getNestedValue(obj: TranslationDict, path: string): unknown {
  * @param root - Root element to search (defaults to document.documentElement)
  */
 export function translateDOM(root: Element = document.documentElement): void {
-  root.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.getAttribute('data-i18n');
+  root.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
     if (key) el.textContent = t(key);
   });
-  root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-    const key = el.getAttribute('data-i18n-placeholder');
+  root.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
     if (key) (el as HTMLInputElement).placeholder = t(key);
   });
 }

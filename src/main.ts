@@ -6,44 +6,44 @@
  */
 
 // Styles
-import './styles/main.css';
-import './styles/components.css';
-import './styles/ui.css';
-import './styles/animations.css';
+import "./styles/main.css";
+import "./styles/components.css";
+import "./styles/ui.css";
+import "./styles/animations.css";
 
 // Firebase
-import { auth } from './config/firebase';
-import { signInAnonymously } from 'firebase/auth';
-import { initConnectionMonitor } from './services/connection-monitor';
+import { auth } from "./config/firebase";
+import { signInAnonymously } from "firebase/auth";
+import { initConnectionMonitor } from "./services/connection-monitor";
 
 // State
-import state from './state/app-state';
+import state from "./state/app-state";
 
 // UI
-import { showScreen } from './ui/ui-manager';
-import { notify } from './core/utils';
+import { showScreen } from "./ui/ui-manager";
+import { notify } from "./core/utils";
 
 // i18n
-import { initI18n } from './i18n/i18n';
-import { getSavedLocale } from './i18n/locale-switcher';
+import { initI18n } from "./i18n/i18n";
+import { getSavedLocale } from "./i18n/locale-switcher";
 
 // Web Components
-import { registerComponents } from './components';
+import { registerComponents } from "./components";
 
 // App modules
-import { initAppHandlers } from './ui/event-handlers';
-import { renderItemList } from './ui/renderer';
+import { initAppHandlers } from "./ui/event-handlers";
+import { renderItemList } from "./ui/renderer";
 
 /* ==================== FIREBASE AUTH ==================== */
 
-console.log('Connecting to Firebase...');
+console.log("Connecting to Firebase...");
 try {
   await signInAnonymously(auth);
   state.userId = auth.currentUser!.uid;
-  console.log('Firebase connected! User ID:', state.userId);
+  console.log("Firebase connected! User ID:", state.userId);
 } catch (error) {
-  console.error('Firebase connection error:', error);
-  notify('Firebase connection error: ' + (error as Error).message, 'error');
+  console.error("Firebase connection error:", error);
+  notify("Firebase connection error: " + (error as Error).message, "error");
 }
 
 initConnectionMonitor();
@@ -64,13 +64,13 @@ function renderApp(): void {
 initAppHandlers(renderApp);
 
 // Remove skeleton loader
-const skeleton = document.getElementById('skeleton-loader');
+const skeleton = document.getElementById("skeleton-loader");
 if (skeleton) {
-  skeleton.style.transition = 'opacity 0.3s';
-  skeleton.style.opacity = '0';
+  skeleton.style.transition = "opacity 0.3s";
+  skeleton.style.opacity = "0";
   setTimeout(() => skeleton.remove(), 300);
 }
 
-showScreen('start-screen');
+showScreen("start-screen");
 
-console.log('App initialized');
+console.log("App initialized");

@@ -2,7 +2,7 @@
  * Item Service
  * Manages Firestore operations for items: CRUD + real-time subscription.
  */
-import { db } from '../config/firebase';
+import { db } from "../config/firebase";
 import {
   collection,
   doc,
@@ -13,10 +13,10 @@ import {
   orderBy,
   onSnapshot,
   serverTimestamp,
-} from 'firebase/firestore';
-import { COLLECTIONS } from '../constants/app-constants';
-import state from '../state/app-state';
-import type { Item, RenderCallback } from '../types/index';
+} from "firebase/firestore";
+import { COLLECTIONS } from "../constants/app-constants";
+import state from "../state/app-state";
+import type { Item, RenderCallback } from "../types/index";
 
 /**
  * Creates a new item in Firestore
@@ -26,13 +26,13 @@ import type { Item, RenderCallback } from '../types/index';
  */
 export async function createItem(
   userId: string,
-  itemData: { title: string; description: string }
+  itemData: { title: string; description: string },
 ): Promise<string> {
   const docRef = await addDoc(collection(db, COLLECTIONS.ITEMS), {
     ...itemData,
     authorUid: userId,
     createdAt: serverTimestamp(),
-    status: 'active',
+    status: "active",
   });
   return docRef.id;
 }
@@ -50,13 +50,16 @@ export async function deleteItem(itemId: string): Promise<void> {
  * @param userId - User ID to filter items by
  * @param renderCallback - Called after state updates
  */
-export function subscribeToItems(userId: string, renderCallback: RenderCallback): void {
+export function subscribeToItems(
+  userId: string,
+  renderCallback: RenderCallback,
+): void {
   if (state.unsubscribe) state.unsubscribe();
 
   const q = query(
     collection(db, COLLECTIONS.ITEMS),
-    where('authorUid', '==', userId),
-    orderBy('createdAt', 'desc')
+    where("authorUid", "==", userId),
+    orderBy("createdAt", "desc"),
   );
 
   state.unsubscribe = onSnapshot(q, (snapshot) => {

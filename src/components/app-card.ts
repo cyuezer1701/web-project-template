@@ -7,11 +7,11 @@
  * </app-card>
  */
 
-import { BaseComponent } from './base-component';
+import { BaseComponent } from "./base-component";
 
 export class AppCard extends BaseComponent {
   static get observedAttributes(): string[] {
-    return ['elevation'];
+    return ["elevation"];
   }
 
   attributeChangedCallback(): void {
@@ -19,12 +19,12 @@ export class AppCard extends BaseComponent {
   }
 
   render(): void {
-    const elevation = this.getAttribute('elevation') || 'md';
+    const elevation = this.getAttribute("elevation") || "md";
 
     const shadows: Record<string, string> = {
-      sm: '0 2px 8px rgba(0,0,0,0.1)',
-      md: '0 8px 32px rgba(31,38,135,0.15)',
-      lg: '0 16px 48px rgba(31,38,135,0.25)',
+      sm: "0 2px 8px rgba(0,0,0,0.1)",
+      md: "0 8px 32px rgba(31,38,135,0.15)",
+      lg: "0 16px 48px rgba(31,38,135,0.25)",
     };
 
     this.html(`
