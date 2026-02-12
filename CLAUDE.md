@@ -51,13 +51,35 @@ tests/
 - Test files match source file names: `item-logic.ts` -> `item-logic.test.ts`
 - Use factory helpers from `tests/helpers/` for test data
 
-## Agent Roles
+## Teamstruktur / Agent Hierarchy
 
-Use the slash commands for specialized agent roles:
-- `/designer` - UI/UX design decisions, component styling, accessibility
-- `/pm` - Project management, feature planning, task breakdown
-- `/dev` - Implementation, debugging, code review
-- `/tester` - Test writing, coverage analysis, quality assurance
+This project uses a hierarchical agent model:
+
+```
+CEO (User) — gibt Aufgaben und Anweisungen
+  |
+  PM (/pm) — Zentraler Orchestrator, einziger Ansprechpartner des CEO
+    |
+    +-- Developer (/dev) — Implementierung, Debugging, Code Review
+    +-- Designer (/designer) — UI/UX Design, Styling, Accessibility
+    +-- Tester (/tester) — Tests, Coverage, Qualitätssicherung
+    +-- [Dynamische Agenten nach Bedarf]
+```
+
+### Arbeitsweise
+
+1. **CEO** gibt dem PM eine Aufgabe (z.B. "Neues Feature: Dark Mode")
+2. **PM** analysiert, zerlegt in Teilaufgaben, erstellt einen Delegationsplan
+3. **PM** gibt dem CEO die genaue Reihenfolge der `/command` Aufrufe vor
+4. **CEO** führt die Befehle der Reihe nach aus und gibt Ergebnisse an den PM zurück
+5. **PM** prüft Ergebnisse, koordiniert Nacharbeit, meldet Abschluss an den CEO
+
+### Agent-Kommunikation
+
+- Nur der PM kommuniziert mit dem CEO
+- Alle Agenten liefern strukturierte Reports, die der PM auswerten kann
+- Agenten referenzieren die Outputs anderer Agenten via Task-IDs (z.B. "DEV-001", "TEST-001")
+- Neue Spezialisten-Agenten können vom PM vorgeschlagen werden (siehe `_agent-template.md`)
 
 ## Rules
 
@@ -67,3 +89,5 @@ Use the slash commands for specialized agent roles:
 - Follow existing patterns: pure logic in `core/`, services for Firebase, types in `types/`
 - All user-facing strings must use `t()` from `src/i18n/i18n.ts`
 - New UI elements should be Web Components in `src/components/`
+- Always start with `/pm` for any new feature or task — never invoke agents directly
+- The PM is the single point of coordination for all work
