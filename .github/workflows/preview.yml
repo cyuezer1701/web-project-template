@@ -7,6 +7,7 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-latest
+    if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
 
     steps:
       - uses: actions/checkout@v4
